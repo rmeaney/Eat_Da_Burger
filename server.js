@@ -1,7 +1,11 @@
-//first we grab packages
+//dependencies
 var express = require('express');
-var bodyParser = require('body-parser');
+//set handlebars
+var exphbs = require('express-handlebars');
 var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
+var path = require('path');
+
 
 var port = process.env.PORT || 3000;
 
@@ -11,11 +15,14 @@ var app = express();
 //enable static content from the public directory
 app.use(express.static('public'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 // set up the override so we can use override a post command with a delete
 app.use(methodOverride('_method'));
 
-//set handlebars
-var exphbs = require('express-handlebars');
+
+
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');

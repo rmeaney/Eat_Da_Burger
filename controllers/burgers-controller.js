@@ -9,9 +9,26 @@ var burger = require('../models/burger.js');
 router.get('/', function(request, response){
 	burger.all(function(data){
 		var hbsObject = {
-			cats: data
+			burgers: data
 		};
 		console.log(hbsObject);
-		res.render(index, hbsObject);
+		response.render('index', hbsObject);
 	});
 });
+
+router.post('/', function(request, response){
+	burger.insertNew(request.body.burger, function(){
+		response.redirect('/');
+	});
+});
+router.put('/:id', function(request, response){
+	console.log(request.body);
+	var condition = 'id = ' + request.params.id;
+	var value = 'devoured = ' + request.body.devoured;
+	console.log(condition);
+	burger.updateBurger(value, condition, function(){
+		response.redirect('/');
+	});
+});
+
+module.exports = router;
