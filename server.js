@@ -15,13 +15,13 @@ app.use(express.static('public'));
 app.use(methodOverride('_method'));
 
 //set handlebars
-var exhbs = require('express-handlebars');
+var exphbs = require('express-handlebars');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 //Import routes and give the server access to them.
-var routes = require('./controllers/burgerController.js');
+var routes = require('./controllers/burgers-controller.js');
 app.use('/', routes);
 
 app.listen(port);
